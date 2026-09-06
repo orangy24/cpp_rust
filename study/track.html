@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>C++ track — roadmap.sh</title>
+  <style>
+    :root { color-scheme: dark light; }
+    body { font: 16px/1.45 system-ui, sans-serif; max-width: 46rem; margin: 2rem auto; padding: 0 1rem; }
+    h1 { font-size: 1.35rem; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 0.35rem 0.4rem; border-bottom: 1px solid color-mix(in srgb, currentColor 18%, transparent); }
+    .muted { opacity: 0.75; font-size: 0.92rem; }
+    label { display: flex; gap: 0.5rem; align-items: center; }
+    select { font: inherit; }
+    code { font-size: 0.9em; }
+  </style>
+</head>
+<body>
+  <h1>C++ track — <a href="https://roadmap.sh/cpp">roadmap.sh/cpp</a></h1>
+  <p class="muted">Official beginner → intermediate → tools groups. Progress in this browser only.</p>
+  <p id="stats"></p>
+  <table>
+    <thead><tr><th>Group</th><th>Kata</th><th>Done</th></tr></thead>
+    <tbody id="board"></tbody>
+  </table>
+  <h2>This group</h2>
+  <p><select id="pick"></select></p>
+  <p id="blurb"></p>
+  <p id="nodes" class="muted"></p>
+  <p id="run"></p>
+  <label><input type="checkbox" id="done" /> Group done</label>
+  <script>
+    const SECTIONS = [
+      { id: "setup", title: "1. Setup", nodes: "What is C++, Why, C vs C++, install, IDE, first program", run: null, idea: "Hello world. No kata." },
+      { id: "ops", title: "2. Basic operations", nodes: "Arithmetic, logical, bitwise", run: null, idea: "No kata yet." },
+      { id: "flow", title: "3. Control flow", nodes: "for/while, if/switch", run: null, idea: "No kata yet." },
+      { id: "functions", title: "4. Functions", nodes: "Functions", run: "./run signatures", idea: "const, refs, vector, templates." },
+      { id: "types", title: "5. Data types", nodes: "Static typing", run: null, idea: "No kata yet." },
+      { id: "ptrs", title: "6. Pointers and references", nodes: "References, raw pointers", run: "./run signatures", idea: "Same signatures kata." },
+      { id: "memory", title: "7. Memory model", nodes: "Lifetime, new/delete, smart pointers", run: "./run raii-loans", idea: "RAII loan." },
+      { id: "structure", title: "8. Structuring codebase", nodes: "Scope, namespaces, headers", run: "./run abi", idea: "Opaque C handle." },
+      { id: "oop", title: "9. Classes and OOP", nodes: "Rule of 0/3/5, virtual, vtable, dynamic poly", run: "./run nodes", idea: "ISubscription*." },
+      { id: "exceptions", title: "10. Exception handling", nodes: "Exceptions, exit codes", run: null, idea: "No kata yet." },
+      { id: "concepts-lang", title: "11. Language concepts", nodes: "auto, casts, UB, ADL", run: "./run views", idea: "string_view / dangling = UB." },
+      { id: "static-poly", title: "12. Static polymorphism", nodes: "Overload, operators, lambdas", run: "./run static-poly", idea: "CRTP." },
+      { id: "stl", title: "13. STL", nodes: "Iterators, algorithms, containers", run: "./run views", idea: "Prefer algorithms." },
+      { id: "threads", title: "14. Multithreading", nodes: "Multithreading", run: "./run concurrency-queue", idea: "Also concurrency-executor." },
+      { id: "templates", title: "15. Templates", nodes: "Specialization, SFINAE, type traits", run: "./run templates", idea: "Also ./run policies." },
+      { id: "idioms", title: "16. Idioms", nodes: "RAII, Pimpl, CRTP, copy-swap", run: "./run type-erasure", idea: "Plus raii-loans / static-poly." },
+      { id: "standards", title: "17. Standards", nodes: "C++11–23", run: "./run qos", idea: "constexpr; repo is C++20." },
+      { id: "tools", title: "18. Tools", nodes: "GDB, CMake, Catch2, vcpkg", run: null, idea: "This repo already uses CMake + Catch2." },
+    ];
+    const KEY = "cpp-rust-kata-roadmap-v1";
+    const state = JSON.parse(localStorage.getItem(KEY) || '{"current":"functions","done":{}}');
+    function save() { localStorage.setItem(KEY, JSON.stringify(state)); render(); }
+    const pick = document.getElementById("pick");
+    SECTIONS.forEach((s) => { const o = document.createElement("option"); o.value = s.id; o.textContent = s.title; pick.appendChild(o); });
+    pick.onchange = () => { state.current = pick.value; save(); };
+    document.getElementById("done").onchange = (e) => { state.done[state.current] = e.target.checked; save(); };
+    function render() {
+      pick.value = state.current;
+      const s = SECTIONS.find((x) => x.id === state.current);
+      document.getElementById("blurb").textContent = s.idea;
+      document.getElementById("nodes").textContent = "Official nodes: " + s.nodes;
+      document.getElementById("run").innerHTML = s.run ? "Run <code>" + s.run + "</code>" : "No kata — use the site node.";
+      document.getElementById("done").checked = !!state.done[s.id];
+      const n = SECTIONS.filter((x) => state.done[x.id]).length;
+      document.getElementById("stats").textContent = n + " / " + SECTIONS.length + " groups done";
+      document.getElementById("board").innerHTML = SECTIONS.map((x) =>
+        "<tr><td>" + x.title + "</td><td>" + (x.run || "—") + "</td><td>" + (state.done[x.id] ? "yes" : "") + "</td></tr>"
+      ).join("");
+    }
+    render();
+  </script>
+</body>
+</html>

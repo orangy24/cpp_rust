@@ -9,6 +9,8 @@ if [[ -z "$name" ]]; then
   echo "                         # static-poly policies policies-serialize"
   echo "                         # type-erasure pubsub nodes abi memory"
   echo "                         # concurrency-queue concurrency-executor"
+  echo "       ./run practice          # your Catch2 file practice/tests.cpp"
+  echo "       ./run practice-sandbox  # practice/sandbox.cpp"
   echo "       ./run rust"
   exit 1
 fi

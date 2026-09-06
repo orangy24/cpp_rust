@@ -69,3 +69,16 @@ add_topic_files(concurrency-executor
   topics/concurrency/executor_test.cpp topics/concurrency/executor.cpp)
 target_include_directories(concurrency-executor PRIVATE
   "${CMAKE_SOURCE_DIR}/topics/concurrency")
+
+add_executable(practice practice/tests.cpp)
+target_link_libraries(practice PRIVATE Catch2::Catch2WithMain)
+add_executable(practice-sandbox practice/sandbox.cpp)
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+  foreach(t IN ITEMS practice practice-sandbox)
+    target_compile_options(${t} PRIVATE -Wall -Wextra -Wpedantic)
+    if(KATA_SANITIZE)
+      target_compile_options(${t} PRIVATE -fsanitize=address,undefined)
+      target_link_options(${t} PRIVATE -fsanitize=address,undefined)
+    endif()
+  endforeach()
+endif()

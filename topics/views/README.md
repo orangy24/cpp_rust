@@ -13,11 +13,12 @@ Prefer **values + views** over a class hierarchy of messages. Inheritance is the
 | ROS 2 | [Interfaces](https://docs.ros.org/en/rolling/Concepts/Basic/About-Interfaces.html) |
 | Spec | [`string_view`](https://en.cppreference.com/w/cpp/string/basic_string_view), [`from_chars`](https://en.cppreference.com/w/cpp/utility/from_chars) |
 | iceoryx2 | Payload is a **type you choose**, not a base `Message*` |
+| Talk | Klaus Iglberger, [(Range) Algorithms](https://www.youtube.com/watch?v=eJCA2fynzME) (CppCon 2023) |
 
 ## Kata
 
 `parse_stamp` / `split_fields` on `'|'` (same rules as before: empty → Empty; leftover digits → Invalid; split aliases the input).
 
 ```bash
-./run week02
+./run views
 ```

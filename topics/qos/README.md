@@ -13,7 +13,7 @@ Configuration as **data**, not virtual `IQoS`. `constexpr` functions over enums.
 | ROS 2 | [QoS](https://docs.ros.org/en/rolling/Concepts/Intermediate/About-Quality-of-Service-Settings.html) |
 | iceoryx2 | [QoS / service](https://iceoryx2.io/) — compare how little DDS they expose |
 | Spec | [`constexpr`](https://en.cppreference.com/w/cpp/language/constexpr) |
-| Talk | Jason Turner, [constexpr ALL the Things](https://www.youtube.com/watch?v=Hmb55pHs1zs) |
+| Talk | Ben Deane & Jason Turner, [constexpr ALL the Things](https://www.youtube.com/watch?v=PJwd4JLYJJY) (CppCon 2017) |
 
 ## Kata
 

@@ -16,7 +16,7 @@ Keep-last QoS is a **queue**. `spin` is a list of erased callbacks. Heterogeneou
 | Fedor Pikus, [C++ atomics, from basic to advanced](https://www.youtube.com/watch?v=ZQFzMfHIxng) (CppCon 2017) | What `memory_order` actually is |
 | Fedor Pikus, [The speed of concurrency](https://www.youtube.com/watch?v=9hJkWwHDDxs) (CppCon 2016) | Locks vs lock-free (do mutex first) |
 | Herb Sutter, [atomic<> Weapons](https://www.youtube.com/watch?v=A8eCGOqgvH4) (C++ and Beyond / CppCon era) | Happens-before |
-| Tony Van Eerd, [Thread Sanitizer is not a Toy](https://www.youtube.com/watch?v=k-Aiyx95ULQ) (search if ID drifts) | How you’ll debug this |
+| CppCon channel | [youtube.com/@CppCon](https://www.youtube.com/@CppCon) if a link 404s |
 
 ## Also
 
