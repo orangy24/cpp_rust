@@ -1,0 +1,12 @@
+[package]
+name = "rust_kata"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+
+[build-dependencies]
+cc = "1.2"

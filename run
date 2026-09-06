@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+root="$(cd "$(dirname "$0")" && pwd)"
+cd "$root"
+
+week="${1:-}"
+if [[ -z "$week" ]]; then
+  echo "Usage: ./run week01   # or week02 … week14"
+  echo "       ./run rust     # cargo test in rust/"
+  exit 1
+fi
+
+if [[ "$week" == "rust" ]]; then
+  exec cargo test --manifest-path rust/Cargo.toml -- --nocapture
+fi
+
+if [[ ! -d "build" ]]; then
+  cmake --preset debug || cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+fi
+cmake --build build --target "$week"
+exec "./build/$week"
