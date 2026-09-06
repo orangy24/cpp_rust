@@ -1,4 +1,4 @@
-#include "kata.hpp"
+#include "executor.hpp"
 
 void Executor::add(std::function<void()> job) {
   (void)job;

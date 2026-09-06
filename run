@@ -3,19 +3,22 @@ set -euo pipefail
 root="$(cd "$(dirname "$0")" && pwd)"
 cd "$root"
 
-week="${1:-}"
-if [[ -z "$week" ]]; then
-  echo "Usage: ./run week01   # or week02 … week14"
-  echo "       ./run rust     # cargo test in rust/"
+name="${1:-}"
+if [[ -z "$name" ]]; then
+  echo "Usage: ./run <topic>     # signatures raii-loans views qos templates"
+  echo "                         # static-poly policies policies-serialize"
+  echo "                         # type-erasure pubsub nodes abi memory"
+  echo "                         # concurrency-queue concurrency-executor"
+  echo "       ./run rust"
   exit 1
 fi
 
-if [[ "$week" == "rust" ]]; then
+if [[ "$name" == "rust" ]]; then
   exec cargo test --manifest-path rust/Cargo.toml -- --nocapture
 fi
 
 if [[ ! -d "build" ]]; then
   cmake --preset debug || cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
 fi
-cmake --build build --target "$week"
-exec "./build/$week"
+cmake --build build --target "$name"
+exec "./build/$name"

@@ -1,23 +1,23 @@
-# Week 13 — Subscriber history queue
+# Concurrency — subscriber history + executor
 
-Keep-last QoS is a **bounded queue** of samples. Mutex now; lock-free later if you ever touch iceoryx internals.
+Keep-last QoS is a **queue**. `spin` is a list of erased callbacks. Heterogeneous messages stay *outside* the queue (do not `queue<BaseMsg*>`).
 
-## Polymorphism this week
-
-The queue is **monomorphic** (`int` here). Heterogeneous messages belong *outside* (type erasure at subscribe). Do not make `queue<BaseMsg*>`.
-
-## Read / watch
-
-| Kind | Resource |
-| --- | --- |
-| ROS 2 | History KeepLast / KeepAll |
-| Book | Williams *C++ Concurrency in Action* ch. 3–4, 6 |
-| Spec | [`mutex`](https://en.cppreference.com/w/cpp/thread/mutex), [`condition_variable`](https://en.cppreference.com/w/cpp/thread/condition_variable) |
-
-## Kata
-
-`BlockingQueue`: `push`, `pop` (waits), `try_pop`. Two threads in tests.
+## Run
 
 ```bash
-./run week13
+./run concurrency-queue
+./run concurrency-executor
 ```
+
+## CppCon
+
+| Talk | Why |
+| --- | --- |
+| Fedor Pikus, [C++ atomics, from basic to advanced](https://www.youtube.com/watch?v=ZQFzMfHIxng) (CppCon 2017) | What `memory_order` actually is |
+| Fedor Pikus, [The speed of concurrency](https://www.youtube.com/watch?v=9hJkWwHDDxs) (CppCon 2016) | Locks vs lock-free (do mutex first) |
+| Herb Sutter, [atomic<> Weapons](https://www.youtube.com/watch?v=A8eCGOqgvH4) (C++ and Beyond / CppCon era) | Happens-before |
+| Tony Van Eerd, [Thread Sanitizer is not a Toy](https://www.youtube.com/watch?v=k-Aiyx95ULQ) (search if ID drifts) | How you’ll debug this |
+
+## Also
+
+ROS 2 [Executors](https://docs.ros.org/en/rolling/Concepts/Intermediate/About-Executors.html). Williams *C++ Concurrency in Action* ch. 3–4, 6.

@@ -1,12 +1,12 @@
-# Rust weeks — same poly story
+# Rust modules (same topics)
 
-| Filter | Maps to C++ week |
+| Cargo filter | C++ topic |
 | --- | --- |
-| `week15` | 01 loan |
-| `week16` | 04 `Message` |
-| `week17` | 10 `dyn Subscription` |
-| `week18` | 11 C `node_*` in `src/pipeline.c` |
-| `week19` | 13–14 executor/threads |
+| `week15` | raii-loans |
+| `week16` | templates |
+| `week17` | nodes |
+| `week18` | abi (`src/pipeline.c` `node_*`) |
+| `week19` | concurrency |
 | `week20` | ROS 2 vs iceoryx2 |
 
 ```bash
